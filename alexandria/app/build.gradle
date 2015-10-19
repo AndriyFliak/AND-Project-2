@@ -22,11 +22,12 @@ android {
     }
     buildTypes {
         release {
-            testCoverageEnabled = true
+            //jacoco throwing NetworkOnMainThreadException very often so I disabled it
+            //testCoverageEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug{
-            testCoverageEnabled = true
+            //testCoverageEnabled = true
         }
 
     }
