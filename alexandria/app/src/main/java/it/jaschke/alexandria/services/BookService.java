@@ -84,7 +84,7 @@ public class BookService extends IntentService {
         //Checking for internet connection
         if (!isNetworkAvailable(this)) {
             Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
-            messageIntent.putExtra(MainActivity.MESSAGE_KEY,"No Internet");
+            messageIntent.putExtra(MainActivity.MESSAGE_KEY,getResources().getString(R.string.no_internet));
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(messageIntent);
             return;
         }
@@ -164,7 +164,7 @@ public class BookService extends IntentService {
         //Checking for server error
         if (bookJsonString == null) {
             Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
-            messageIntent.putExtra(MainActivity.MESSAGE_KEY,"Lookup error. Try again later");
+            messageIntent.putExtra(MainActivity.MESSAGE_KEY,getResources().getString(R.string.fetch_error));
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(messageIntent);
             return;
         }

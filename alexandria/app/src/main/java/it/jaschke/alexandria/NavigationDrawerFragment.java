@@ -156,12 +156,6 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
-                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-                View view = getActivity().getCurrentFocus();
-                if (view != null && view instanceof EditText) {
-                    inputMethodManager.showSoftInput(view, 0);
-                }
-
                 getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
