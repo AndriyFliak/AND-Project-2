@@ -18,8 +18,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 /**
@@ -153,6 +156,12 @@ public class NavigationDrawerFragment extends Fragment {
                     return;
                 }
 
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                View view = getActivity().getCurrentFocus();
+                if (view != null && view instanceof EditText) {
+                    inputMethodManager.showSoftInput(view, 0);
+                }
+
                 getActivity().supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
             }
 
@@ -161,6 +170,13 @@ public class NavigationDrawerFragment extends Fragment {
                 super.onDrawerOpened(drawerView);
                 if (!isAdded()) {
                     return;
+                }
+
+                //Hiding keyboard when drawer opened
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
 
                 if (!mUserLearnedDrawer) {
@@ -179,6 +195,8 @@ public class NavigationDrawerFragment extends Fragment {
         // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
         // per the navigation drawer design guidelines.
         if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
+            //Hiding keyboard on app start
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             mDrawerLayout.openDrawer(mFragmentContainerView);
         }
 
