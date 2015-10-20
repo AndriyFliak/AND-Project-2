@@ -25,7 +25,6 @@ public class scoresAdapter extends CursorAdapter
     public static final int COL_ID = 8;
     public static final int COL_MATCHTIME = 2;
     public double detail_match_id = 0;
-    private String FOOTBALL_SCORES_HASHTAG = "#Football_Scores";
     public scoresAdapter(Context context,Cursor cursor,int flags)
     {
         super(context,cursor,flags);
@@ -68,17 +67,17 @@ public class scoresAdapter extends CursorAdapter
             container.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                     , ViewGroup.LayoutParams.MATCH_PARENT));
             TextView match_day = (TextView) v.findViewById(R.id.matchday_textview);
-            match_day.setText(Utilies.getMatchDay(cursor.getInt(COL_MATCHDAY),
+            match_day.setText(Utilies.getMatchDay(context, cursor.getInt(COL_MATCHDAY),
                     cursor.getInt(COL_LEAGUE)));
             TextView league = (TextView) v.findViewById(R.id.league_textview);
-            league.setText(Utilies.getLeague(cursor.getInt(COL_LEAGUE)));
+            league.setText(Utilies.getLeague(context, cursor.getInt(COL_LEAGUE)));
             Button share_button = (Button) v.findViewById(R.id.share_button);
             share_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v)
                 {
                     //add Share Action
-                    context.startActivity(createShareForecastIntent(mHolder.home_name.getText()+" "
+                    context.startActivity(createShareForecastIntent(context, mHolder.home_name.getText()+" "
                     +mHolder.score.getText()+" "+mHolder.away_name.getText() + " "));
                 }
             });
@@ -89,11 +88,11 @@ public class scoresAdapter extends CursorAdapter
         }
 
     }
-    public Intent createShareForecastIntent(String ShareText) {
+    public Intent createShareForecastIntent(Context context, String ShareText) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, ShareText + FOOTBALL_SCORES_HASHTAG);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, ShareText + context.getResources().getString(R.string.football_scores_hashtag));
         return shareIntent;
     }
 
