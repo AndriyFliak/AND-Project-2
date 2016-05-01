@@ -2,7 +2,9 @@ package barqsoft.footballscores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
+import android.os.Build;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,10 @@ public class scoresAdapter extends CursorAdapter
         View mItem = LayoutInflater.from(context).inflate(R.layout.scores_list_item, parent, false);
         ViewHolder mHolder = new ViewHolder(mItem);
         mItem.setTag(mHolder);
+        Configuration config = context.getResources().getConfiguration();
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            mItem.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
         //Log.v(FetchScoreTask.LOG_TAG,"new View inflated");
         return mItem;
     }

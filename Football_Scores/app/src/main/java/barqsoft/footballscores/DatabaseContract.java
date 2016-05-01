@@ -13,6 +13,7 @@ public class DatabaseContract
     public static final class scores_table implements BaseColumns
     {
         //Table data
+        public static final String _ID = "id";
         public static final String LEAGUE_COL = "league";
         public static final String DATE_COL = "date";
         public static final String TIME_COL = "time";

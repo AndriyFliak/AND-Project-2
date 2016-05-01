@@ -1,6 +1,8 @@
 package barqsoft.footballscores;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by yehya khaled on 2/27/2015.
@@ -34,8 +37,13 @@ public class PagerFragment extends Fragment
         {
             Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
-            viewFragments[i] = new MainScreenFragment();
-            viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
+            int position = i;
+            Configuration config = getResources().getConfiguration();
+            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                position = NUM_PAGES - position - 1;
+            }
+            viewFragments[position] = new MainScreenFragment();
+            viewFragments[position].setFragmentDate(mformat.format(fragmentdate));
         }
         mPagerHandler.setAdapter(mPagerAdapter);
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
@@ -63,6 +71,10 @@ public class PagerFragment extends Fragment
         @Override
         public CharSequence getPageTitle(int position)
         {
+            Configuration config = getResources().getConfiguration();
+            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                position = getCount() - position - 1;  //thanks to Udacity student josen (Jose) for this suggestion
+            }
             return getDayName(getActivity(),System.currentTimeMillis()+((position-2)*86400000));
         }
         public String getDayName(Context context, long dateInMillis) {

@@ -7,11 +7,12 @@ import android.content.Context;
  */
 public class Utilies
 {
-    public static final int SERIE_A = 357;
-    public static final int PREMIER_LEGAUE = 354;
+    public static final int SERIE_A = 401;
+    public static final int PREMIER_LEGAUE = 398;
     public static final int CHAMPIONS_LEAGUE = 362;
-    public static final int PRIMERA_DIVISION = 358;
-    public static final int BUNDESLIGA = 351;
+    public static final int PRIMERA_DIVISION = 399;
+    public static final int BUNDESLIGA = 394;
+    public static final int BUNDESLIGA2 = 395;
     public static String getLeague(Context context, int league_num)
     {
         switch (league_num)
@@ -21,6 +22,7 @@ public class Utilies
             case CHAMPIONS_LEAGUE : return context.getResources().getString(R.string.champions_league);
             case PRIMERA_DIVISION : return context.getResources().getString(R.string.primeradivison);
             case BUNDESLIGA : return context.getResources().getString(R.string.bundesliga);
+            case BUNDESLIGA2 : return context.getResources().getString(R.string.bundesliga2);
             default: return context.getResources().getString(R.string.not_known_league);
         }
     }

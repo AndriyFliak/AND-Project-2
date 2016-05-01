@@ -265,6 +265,10 @@ public class myFetchService extends IntentService
             inserted_data = mContext.getContentResolver().bulkInsert(
                     DatabaseContract.BASE_CONTENT_URI,insert_data);
 
+            Intent dataUpdatedIntent = new Intent("barqsoft.footballscores.ACTION_DATA_UPDATED")
+                    .setPackage(mContext.getPackageName());
+            mContext.sendBroadcast(dataUpdatedIntent);
+
             //Log.v(LOG_TAG,"Succesfully Inserted : " + String.valueOf(inserted_data));
         }
         catch (JSONException e)
